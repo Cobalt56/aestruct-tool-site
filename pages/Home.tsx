@@ -99,10 +99,8 @@ const Home: React.FC<HomeProps> = ({ onTryTeaser }) => {
                 Creative Vision
               </span>
             </h1>
-            <p className="text-xl text-ae-muted mb-10 max-w-2xl leading-relaxed">
-              AEstruct provides specialized AI architecture for media companies. 
-              Turn raw ideas into greenlit productions with our suite of 
-              script analysis, financial, and strategy tools.
+            <p className="text-xl text-ae-muted font-bold mb-10 max-w-2xl leading-relaxed">
+              AEstruct provides specialized AI tools for content creators. Because sustainable success isn't just about inspiration. It's about having the operational infrastructure to turn ideas into repeatable wins.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/products">

@@ -46,7 +46,7 @@ const About: React.FC = () => {
           AEstruct Inc. was founded on a simple premise: <strong>Creativity scales better with structure.</strong>
         </p>
         <p className="text-lg text-ae-muted leading-relaxed">
-          In the rapidly evolving landscape of digital media, small to mid-size production companies often lack the "back-office" resources of major studios. We provide that infrastructure through intelligent AI tooling, allowing producers to focus on what matters most: the story.
+          In the rapidly evolving landscape of digital media, small to mid-size production companies often lack the "back-office" resources of major studios. We provide that infrastructure through intelligent AI tooling, allowing content creators to focus on what matters most: the story.
         </p>
       </section>
 
@@ -95,7 +95,13 @@ const About: React.FC = () => {
                 Before AI became the central topic, I was on the front lines of two other transformations that reshaped the media landscape. I led several organizations in the transition from analog to fully digitized video workflows, from acquisition to distribution. Subsequently, I helped architect the monumental shift of media operations and back-office systems into the cloud. These experiences taught me firsthand about the technical, organizational, and cultural challenges of large-scale disruption.
               </p>
               <p>
-                Today, the media industry is facing its third and the most profound technology wave: Artificial Intelligence. The patterns are familiar, but the stakes are higher. My role is to act as your translator and strategic partner and help you chart a pragmatic course for its integration. I help you move beyond the hype to leverage AI for tangible results. Whether that's revolutionizing production pipelines, optimizing distribution, or creating new models for audience engagement, all while navigating the sector's unique customer satisfaction and privacy demands.
+                Today, the media industry is facing its third and most profound technology wave: Artificial Intelligence. The patterns are familiar, but the stakes are higher—and most AI vendors are looking in the wrong place. They're chasing flashy content-generation tools while missing where the real value lies: giving solo creators and small production teams access to the studio-level back-office capabilities that have historically been reserved for major players.
+              </p>
+              <p>
+                That insight led me to build AEstruct and develop eight AI-powered tools specifically designed to handle the essential but time-consuming work—script analysis, rights clearance, budget forecasting, production documentation, and more—so content creators can focus on the fun stuff: telling great stories. Because sustainable creative success isn't just about inspiration; it's about having the operational infrastructure to turn ideas into repeatable wins.
+              </p>
+              <p>
+                My role is to act as your translator and strategic partner and help you chart a pragmatic course for AI integration. I help you move beyond the hype to leverage AI for tangible results, whether that's revolutionizing production pipelines, optimizing distribution, or creating new models for audience engagement—all while navigating the sector's unique customer satisfaction and privacy demands.
               </p>
               <p className="text-white font-medium pt-2">
                 If you're looking for a partner who understands both the art of media and the science of technology to guide your AI strategy, let's connect.
