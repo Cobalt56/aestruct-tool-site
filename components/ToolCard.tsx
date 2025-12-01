@@ -2,7 +2,8 @@ import React from 'react';
 import { Tool } from '../types';
 import { TOOL_ICONS } from '../constants';
 import Button from './Button';
-import { ArrowRight, Lock } from 'lucide-react';
+import { ArrowRight, Send } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface ToolCardProps {
   tool: Tool;
@@ -34,11 +35,13 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, onTryTeaser }) => {
           Try Demo <ArrowRight className="ml-2 w-4 h-4" />
         </Button>
         
-        <div className="flex items-center justify-between text-sm text-ae-muted pt-2 border-t border-white/10">
-          <span>Full Version</span>
-          <div className="flex items-center text-ae-accent font-bold">
-            ${tool.fullPrice} <Lock className="w-3 h-3 ml-1 opacity-70" />
-          </div>
+        <div className="pt-3 border-t border-white/10 text-center">
+          <Link 
+            to="/product-contact" 
+            className="inline-flex items-center justify-center gap-1 text-sm font-bold text-ae-accent hover:text-white transition-colors"
+          >
+            Request Full Version <Send className="w-3 h-3 ml-2" />
+          </Link>
         </div>
       </div>
     </div>
