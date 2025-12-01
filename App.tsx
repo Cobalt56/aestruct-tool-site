@@ -8,6 +8,7 @@ import Contact from './pages/Contact';
 import ProductContact from './pages/ProductContact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfUse from './pages/TermsOfUse';
+import CookiePolicy from './pages/CookiePolicy';
 import TeaserModal from './components/TeaserModal';
 import { Tool } from './types';
 
@@ -33,6 +34,7 @@ const App: React.FC = () => {
           <Route path="/product-contact" element={<ProductContact />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfUse />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
         </Routes>
       </Layout>
 

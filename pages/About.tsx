@@ -4,7 +4,7 @@ import { usePageSEO } from '../hooks/usePageSEO';
 const About: React.FC = () => {
   usePageSEO({
     title: "About Us | AEstruct Inc.",
-    description: "Discover AEstruct Inc., led by Emil Freund. We bridge media art and AI architecture, helping studios scale creativity with secure, proprietary production technology."
+    description: "Discover AEstruct Inc. and founder Emil Freund. We combine deep media experience with AI architecture to build secure, scalable production infrastructure."
   });
 
   const [imageError, setImageError] = useState(false);

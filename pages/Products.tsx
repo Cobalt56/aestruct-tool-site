@@ -68,7 +68,7 @@ const LazyToolCard: React.FC<{ tool: Tool; onTryTeaser: (tool: Tool) => void }> 
 const Products: React.FC<ProductsProps> = ({ onTryTeaser }) => {
   usePageSEO({
     title: "Our AI Tools | AEstruct Inc.",
-    description: "Explore AEstruct's AI tools for film & TV: Script Analysis Pro, Budget Forecasting, and Rights Clearance. Boost productivity with professional prompt engineering."
+    description: "Explore AEstruct's suite of 8 AI tools for media production. From Script Analysis to Budget Forecasting, optimize workflows with professional prompt engineering."
   });
 
   const [filter, setFilter] = useState<string>('All');

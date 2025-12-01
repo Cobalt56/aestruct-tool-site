@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { NAV_ITEMS } from '../constants';
@@ -163,6 +162,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <div className="flex gap-8">
               <Link to="/privacy" className="hover:text-ae-accent transition-colors">Privacy Policy</Link>
               <Link to="/terms" className="hover:text-ae-accent transition-colors">Terms of Use</Link>
+              <Link to="/cookie-policy" className="hover:text-ae-accent transition-colors">Cookie Policy</Link>
             </div>
           </div>
         </div>

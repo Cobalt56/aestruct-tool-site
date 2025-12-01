@@ -6,7 +6,7 @@ import { usePageSEO } from '../hooks/usePageSEO';
 const ProductContact: React.FC = () => {
   usePageSEO({
     title: "Request Full Version | AEstruct Inc.",
-    description: "Contact AEstruct Inc. to request full versions of our AI production tools and schedule a consultation for implementation."
+    description: "Request full versions of AEstruct's AI production tools. Contact our engineering team for enterprise licensing, custom implementation, and workflow integration."
   });
 
   const [formData, setFormData] = useState({

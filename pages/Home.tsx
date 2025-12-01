@@ -69,7 +69,7 @@ const LazyToolCard: React.FC<{ tool: Tool; onTryTeaser: (tool: Tool) => void }> 
 const Home: React.FC<HomeProps> = ({ onTryTeaser }) => {
   usePageSEO({
     title: "AEstruct Inc. | Media & Entertainment AI Consultancy",
-    description: "AEstruct Inc. provides expert AI consultancy for media & entertainment. Optimize script analysis, budgeting, and production workflows with enterprise-grade AI tools."
+    description: "AEstruct provides AI consultancy for media & entertainment. Scale production with specialized tools for script analysis, budgeting, and rights clearance."
   });
 
   // Feature only 3 tools on home page
