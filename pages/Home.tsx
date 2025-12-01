@@ -100,7 +100,7 @@ const Home: React.FC<HomeProps> = ({ onTryTeaser }) => {
               </span>
             </h1>
             <p className="text-xl text-ae-muted font-bold mb-10 max-w-2xl leading-relaxed">
-              AEstruct provides specialized AI tools for content creators. Because sustainable success isn't just about inspiration. It's about having the operational infrastructure to turn ideas into repeatable wins.
+              AEstruct provides specialized production support AI tools for content creators. Because sustainable success isn't just about inspiration. It's about having the operational infrastructure to turn ideas into repeatable wins.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/products">
