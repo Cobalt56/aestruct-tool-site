@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>AEstruct Inc. | Media & Entertainment AI Consultancy</title>
+    <meta name="title" content="AEstruct Inc. | Media & Entertainment AI Consultancy" />
+    <meta name="description" content="Specialized AI consultancy for media & entertainment production. Optimize workflows, scripts, and budgets with our proprietary AI tooling suite." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.aestruct.com/" />
+    <meta property="og:title" content="AEstruct Inc. | Media & Entertainment AI Consultancy" />
+    <meta property="og:description" content="Specialized AI consultancy for media & entertainment production. Optimize workflows, scripts, and budgets with our proprietary AI tooling suite." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1200&auto=format&fit=crop" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.aestruct.com/" />
+    <meta property="twitter:title" content="AEstruct Inc. | Media & Entertainment AI Consultancy" />
+    <meta property="twitter:description" content="Specialized AI consultancy for media & entertainment production. Optimize workflows, scripts, and budgets with our proprietary AI tooling suite." />
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1200&auto=format&fit=crop" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "AEstruct Inc.",
+      "image": "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1200",
+      "url": "https://www.aestruct.com",
+      "email": "contact@aestruct.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "New York",
+        "addressRegion": "NY",
+        "addressCountry": "US"
+      },
+      "description": "Consultancy specializing in AI tools for media & entertainment companies.",
+      "priceRange": "$$$"
+    }
+    </script>
+
+    <!-- Google Analytics (GA4) -->
+    <!-- REPLACE 'G-MEASUREMENT_ID' WITH YOUR ACTUAL GA4 MEASUREMENT ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MEASUREMENT_ID');
+    </script>
+
+    <noscript>
+      <meta http-equiv="refresh" content="0;url=home_fallback.html">
+      <style>body { visibility: hidden; }</style>
+    </noscript>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+            },
+            colors: {
+              ae: {
+                dark: '#0f172a', // Slate 900
+                darker: '#020617', // Slate 950
+                accent: '#f59e0b', // Amber 500
+                light: '#f8fafc', // Slate 50
+                muted: '#94a3b8', // Slate 400
+                card: '#1e293b', // Slate 800
+              }
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-ae-darker text-ae-light antialiased selection:bg-ae-accent selection:text-ae-darker">
+    <div id="root"></div>
+    <noscript>
+      <div style="padding: 40px; text-align: center; color: #94a3b8; font-family: sans-serif;">
+        <h1 style="color: white; font-size: 24px; margin-bottom: 20px;">AEstruct Inc.</h1>
+        <p>This application requires JavaScript for the full interactive experience.</p>
+        <p>However, you can view our accessible static pages below:</p>
+        <ul style="list-style: none; padding: 0; margin-top: 20px;">
+          <li style="margin: 10px 0;"><a href="home_fallback.html" style="color: #f59e0b; text-decoration: underline;">Home</a></li>
+          <li style="margin: 10px 0;"><a href="products_fallback.html" style="color: #f59e0b; text-decoration: underline;">Our Tools</a></li>
+          <li style="margin: 10px 0;"><a href="about_fallback.html" style="color: #f59e0b; text-decoration: underline;">About Us</a></li>
+          <li style="margin: 10px 0;"><a href="contact_fallback.html" style="color: #f59e0b; text-decoration: underline;">Contact</a></li>
+        </ul>
+      </div>
+    </noscript>
+    <script type="module" src="./index.tsx"></script>
+  </body>
+</html>

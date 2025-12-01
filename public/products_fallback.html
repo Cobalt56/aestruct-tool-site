@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - AEstruct Inc. (Basic HTML)</title>
+    <!-- Google Analytics (GA4) -->
+    <!-- REPLACE 'G-MEASUREMENT_ID' WITH YOUR ACTUAL GA4 MEASUREMENT ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MEASUREMENT_ID');
+    </script>
+    <style>
+        body { background-color: #020617; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; line-height: 1.6; }
+        a { color: inherit; text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #f59e0b; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        header { background-color: #0f172a; border-bottom: 1px solid #334155; padding: 32px 0; position: sticky; top: 0; z-index: 100; }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 16px; font-weight: 800; font-size: 36px; color: white; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { font-weight: 700; font-size: 18px; color: #94a3b8; }
+        .nav-links a:hover { color: #f59e0b; }
+
+        .page-header { padding: 60px 0 40px; text-align: center; }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 10px; font-family: 'Georgia', serif; }
+        .page-header p { color: #94a3b8; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding-bottom: 80px; }
+        .card { background-color: #1e293b; border: 1px solid #334155; padding: 24px; border-radius: 12px; display: flex; flex-direction: column; }
+        .card-header { display: flex; justify-content: space-between; margin-bottom: 16px; }
+        .tag { font-size: 12px; background: #0f172a; padding: 4px 8px; border-radius: 4px; color: #94a3b8; text-transform: uppercase; }
+        .card h3 { margin: 0 0 4px 0; font-family: 'Georgia', serif; font-size: 1.2rem; }
+        .tagline { font-size: 0.85rem; color: #f59e0b; margin-bottom: 12px; display: block; }
+        .card p { color: #94a3b8; font-size: 0.9rem; flex-grow: 1; }
+        .price { margin-top: 16px; padding-top: 16px; border-top: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; }
+        .price-val { color: #f59e0b; font-weight: bold; font-size: 1.1rem; }
+        
+        footer { background-color: #0f172a; border-top: 1px solid #334155; padding: 40px 0; margin-top: auto; color: #94a3b8; font-size: 0.9rem; }
+
+        .social-icons { display: flex; gap: 12px; margin-top: 16px; justify-content: center; }
+        .social-icons a:hover svg { stroke: #f59e0b; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-wrapper">
+            <a href="home_fallback.html" class="logo">
+                <svg width="64" height="64" viewBox="0 0 40 40" fill="none">
+                    <rect x="0" y="20" width="20" height="20" fill="#F59E0B"/>
+                    <path d="M0 20C0 8.95431 8.95431 0 20 0H40V40H20V20H0Z" fill="#F97316"/>
+                </svg>
+                AEstruct
+            </a>
+            <nav class="nav-links">
+                <a href="home_fallback.html">Home</a>
+                <a href="products_fallback.html" style="color: #f59e0b;">Our Tools</a>
+                <a href="about_fallback.html">About</a>
+                <a href="contact_fallback.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Our Tool Suite</h1>
+            <p>Professional-grade prompt engineering packages.</p>
+        </div>
+
+        <div class="grid">
+            <!-- Tool 1 -->
+            <div class="card">
+                <div class="card-header"><span class="tag">Production</span></div>
+                <h3>AI Tool Recommendation Engine – V3</h3>
+                <span class="tagline">Workflow optimization specialist</span>
+                <p>Analyzes specific production bottlenecks and recommends the optimal AI stack.</p>
+                <div class="price"><span class="price-val">$149</span></div>
+            </div>
+            <!-- Tool 2 -->
+            <div class="card">
+                <div class="card-header"><span class="tag">Finance</span></div>
+                <h3>Budget Forecasting & Variance Tracker Pro –V3</h3>
+                <span class="tagline">Real-time financial modeling</span>
+                <p>Creates detailed budget forecasts and tracks real-time variance.</p>
+                <div class="price"><span class="price-val">$299</span></div>
+            </div>
+            <!-- Tool 3 -->
+            <div class="card">
+                <div class="card-header"><span class="tag">Market</span></div>
+                <h3>Content Calendar Strategist Pro – V3</h3>
+                <span class="tagline">Cross-platform release scheduler</span>
+                <p>Generates optimized publishing schedules for multi-platform campaigns.</p>
+                <div class="price"><span class="price-val">$199</span></div>
+            </div>
+            <!-- Tool 4 -->
+            <div class="card">
+                <div class="card-header"><span class="tag">Market</span></div>
+                <h3>Pitch Deck Optimizer Pro – V3</h3>
+                <span class="tagline">Investor conversion specialist</span>
+                <p>Refines pitch narratives to align with current streamer buying mandates.</p>
+                <div class="price"><span class="price-val">$249</span></div>
+            </div>
+             <!-- Tool 5 -->
+             <div class="card">
+                <div class="card-header"><span class="tag">Production</span></div>
+                <h3>Production Document Generator Pro – V3</h3>
+                <span class="tagline">Automated paperwork suite</span>
+                <p>Instantly generates standardized call sheets and production reports.</p>
+                <div class="price"><span class="price-val">$199</span></div>
+            </div>
+             <!-- Tool 6 -->
+             <div class="card">
+                <div class="card-header"><span class="tag">Production</span></div>
+                <h3>Rights & Clearance Assistant Pro – V3</h3>
+                <span class="tagline">IP risk assessment</span>
+                <p>Scans script elements for potential copyright or E&O insurance risks.</p>
+                <div class="price"><span class="price-val">$299</span></div>
+            </div>
+             <!-- Tool 7 -->
+             <div class="card">
+                <div class="card-header"><span class="tag">Market</span></div>
+                <h3>Trend Scout & Insight Generator</h3>
+                <span class="tagline">Data-driven creative development</span>
+                <p>Synthesizes emerging narrative trends from social listening data.</p>
+                <div class="price"><span class="price-val">$179</span></div>
+            </div>
+             <!-- Tool 8 -->
+             <div class="card">
+                <div class="card-header"><span class="tag">Script</span></div>
+                <h3>Script Analyst Pro – V3</h3>
+                <span class="tagline">Deep structural dramaturgy</span>
+                <p>Comprehensive screenplay analysis focusing on character arcs and pacing.</p>
+                <div class="price"><span class="price-val">$199</span></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container" style="text-align: center;">
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/company/aestruct-inc/?viewAsMember=true" target="_blank" rel="noopener noreferrer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+                <a href="https://www.youtube.com/@AEstructInc" target="_blank" rel="noopener noreferrer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2.85 2.85 0 0 1 1.8-2 24.21 24.21 0 0 1 15.4 0 2.85 2.85 0 0 1 1.8 2 24.12 24.12 0 0 1 0 10 2.85 2.85 0 0 1-1.8 2 24.21 24.21 0 0 1-15.4 0 2.85 2.85 0 0 1-1.8-2z"></path>
+                        <polygon points="10 15 15 12 10 9"></polygon>
+                    </svg>
+                </a>
+            </div>
+            <p>© 2024 AEstruct Inc. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
