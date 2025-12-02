@@ -6,6 +6,21 @@ import Button from './Button';
 import CookieConsent from './CookieConsent';
 import { Menu, X, Linkedin, Youtube } from 'lucide-react';
 
+// Reusable Scalable Logo Component
+// This SVG will always fill 100% of the width and height of its parent container.
+const BrandLogo = ({ className = "" }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 100 100" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+    className={`w-full h-full ${className}`}
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <path d="M0 50C0 22.3858 22.3858 0 50 0H100V100H50V50H0Z" fill="#F97316"/>
+    <rect x="0" y="50" width="50" height="50" fill="#F59E0B"/>
+  </svg>
+);
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const location = useLocation();
@@ -29,11 +44,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             
             {/* Logo */}
             <Link to="/" className="flex items-center gap-4 group">
-              <div className="w-20 h-20 flex-shrink-0 relative transition-transform group-hover:scale-105">
-                <svg viewBox="0 0 100 100" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 50C0 22.3858 22.3858 0 50 0H100V100H50V50H0Z" fill="#F97316"/>
-                  <rect x="0" y="50" width="50" height="50" fill="#F59E0B"/>
-                </svg>
+              {/* 
+                 SCALING CONTROL:
+                 Change the w-* and h-* classes here to scale the logo to any size.
+                 The SVG inside will automatically fit this area.
+              */}
+              <div className="w-24 h-24 flex-shrink-0 relative transition-transform group-hover:scale-105">
+                <BrandLogo />
               </div>
               <div className="flex flex-col">
                 <span className="font-sans text-4xl font-extrabold leading-none tracking-tight text-white group-hover:text-ae-accent transition-colors">AEstruct</span>
@@ -103,11 +120,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                 <div className="w-10 h-10 relative">
-                   <svg viewBox="0 0 100 100" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M0 50C0 22.3858 22.3858 0 50 0H100V100H50V50H0Z" fill="#F97316"/>
-                      <rect x="0" y="50" width="50" height="50" fill="#F59E0B"/>
-                    </svg>
+                 {/* Footer Logo Scaling: Adjusted to w-12 h-12 */}
+                 <div className="w-12 h-12 relative">
+                    <BrandLogo />
                  </div>
                 <h3 className="font-sans text-2xl font-bold text-white">AEstruct Inc.</h3>
               </div>
