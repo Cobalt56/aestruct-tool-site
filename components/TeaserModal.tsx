@@ -99,17 +99,22 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
     };
 
     try {
-      // Try the path exactly as defined
+      // Try the path exactly as defined (relative)
       let fetchUrl = tool.demoFilePath;
       console.log(`Attempting download from: ${fetchUrl}`);
       
       let response = await fetch(fetchUrl);
       
-      // If failed, and path doesn't start with 'public/', try prepending 'public/'
-      // This handles the case where users deploy source code structure directly
-      if (!response.ok && !fetchUrl.startsWith('public/')) {
+      // If failed, try prepending 'public/' (common in some dev servers)
+      if (!response.ok) {
          console.log(`First attempt failed. Retrying with 'public/${fetchUrl}'`);
          response = await fetch(`public/${fetchUrl}`);
+      }
+      
+      // If failed, try absolute path (common in production roots)
+      if (!response.ok) {
+         console.log(`Second attempt failed. Retrying with '/${fetchUrl}'`);
+         response = await fetch(`/${fetchUrl}`);
       }
 
       // Check Content-Type to ensure we didn't get a 404 HTML page
@@ -138,23 +143,23 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="bg-ae-card w-full max-w-5xl rounded-2xl border border-ae-accent/30 shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="bg-ae-card w-full max-w-6xl rounded-none sm:rounded-2xl border-x-0 sm:border border-ae-accent/30 shadow-2xl flex flex-col h-full sm:h-auto sm:max-h-[90vh] overflow-hidden">
         
         {/* Header */}
-        <div className="p-6 border-b border-white/10 flex justify-between items-center bg-ae-darker">
+        <div className="p-4 md:p-6 border-b border-white/10 flex justify-between items-center bg-ae-darker flex-shrink-0">
           <div>
-            <h2 className="text-2xl font-serif text-ae-light flex items-center gap-3">
+            <h2 className="text-xl md:text-2xl font-serif text-ae-light flex items-center gap-2 md:gap-3">
               <div className="p-2 bg-ae-accent/10 rounded-lg text-ae-accent">
                 <Sparkles className="w-5 h-5" />
               </div>
-              {tool.name}
+              <span className="truncate max-w-[200px] sm:max-w-none">{tool.name}</span>
             </h2>
             <div className="flex items-center gap-2 mt-2">
               <span className="px-2 py-0.5 rounded bg-ae-accent text-ae-darker text-[10px] font-bold uppercase tracking-wide">
                 Simulation Mode
               </span>
-              <p className="text-ae-muted text-xs font-mono">v3.0 // System Logic Preview</p>
+              <p className="text-ae-muted text-xs font-mono hidden sm:block">v3.0 // System Logic Preview</p>
             </div>
           </div>
           <button onClick={onClose} className="text-ae-muted hover:text-white transition-colors p-2 hover:bg-white/5 rounded-full">
@@ -166,23 +171,25 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
         <div className="flex-grow overflow-y-auto bg-ae-dark flex flex-col md:flex-row">
           
           {/* Left Panel: Scenarios & Download */}
-          <div className="w-full md:w-1/3 p-6 border-b md:border-b-0 md:border-r border-white/10 bg-ae-darker/50 flex flex-col">
+          <div className="w-full md:w-[350px] lg:w-[400px] p-4 md:p-6 border-b md:border-b-0 md:border-r border-white/10 bg-ae-darker/50 flex flex-col flex-shrink-0">
              
              {/* Scenarios Section */}
-             <div className="mb-6">
+             <div className="mb-6 flex-shrink-0">
                <h3 className="text-xs font-bold text-ae-muted uppercase tracking-wider mb-2 flex items-center gap-2">
                  <Terminal className="w-4 h-4" /> Test Scenarios
                </h3>
-               <p className="text-xs text-ae-muted leading-relaxed mb-4">
+               <p className="text-xs text-ae-muted leading-relaxed mb-4 hidden md:block">
                  Select a pre-configured test case to observe how our proprietary system prompts analyze and structure complex data.
                </p>
-               <div className="space-y-3">
+               
+               {/* Mobile: Horizontal Scroll | Desktop: Vertical Stack */}
+               <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 snap-x hide-scrollbar">
                  {tool.scenarios?.map((scenario) => (
                    <button
                      key={scenario.id}
                      onClick={() => runSimulation(scenario)}
                      disabled={loading}
-                     className="w-full text-left p-4 rounded-lg border border-white/10 hover:border-ae-accent/50 hover:bg-white/5 transition-all group relative overflow-hidden"
+                     className="min-w-[280px] md:min-w-0 snap-center w-full text-left p-4 rounded-lg border border-white/10 hover:border-ae-accent/50 hover:bg-white/5 transition-all group relative overflow-hidden flex-shrink-0"
                    >
                      <div className="relative z-10">
                        <div className="font-bold text-ae-light text-sm group-hover:text-ae-accent transition-colors flex items-center justify-between">
@@ -201,8 +208,8 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
                </div>
              </div>
 
-             {/* Download Section */}
-             <div className="mt-auto pt-6 border-t border-white/10">
+             {/* Download Section (Pushed to bottom on desktop, flows naturally on mobile) */}
+             <div className="md:mt-auto pt-6 border-t border-white/10">
                <h3 className="text-xs font-bold text-ae-muted uppercase tracking-wider mb-3 flex items-center gap-2">
                  <Download className="w-4 h-4" /> Download Full Demo
                </h3>
@@ -210,7 +217,7 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
                {!isRegistered ? (
                  <form onSubmit={handleEmailSubmit} className="space-y-2">
                    <p className="text-xs text-ae-muted mb-2">
-                     Enter your email to unlock the full markdown system prompt specification file ({tool.demoFileSize || 'Unknown size'}).
+                     Enter email to unlock spec file ({tool.demoFileSize || 'Unknown'}).
                    </p>
                    <div className="relative">
                      <Mail className="absolute left-3 top-2.5 w-4 h-4 text-ae-muted/50" />
@@ -234,7 +241,7 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
                ) : (
                  <div className="animate-in fade-in slide-in-from-bottom-2">
                    <p className="text-xs text-green-400 mb-2 flex items-center gap-1">
-                     <Check className="w-3 h-3" /> Download unlocked
+                     <Check className="w-3 h-3" /> Unlocked
                    </p>
                    <Button 
                      variant="outline" 
@@ -275,13 +282,13 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
           </div>
 
           {/* Right Panel: Output */}
-          <div className="w-full md:w-2/3 p-6 flex flex-col bg-gradient-to-br from-ae-dark to-ae-darker">
+          <div className="w-full md:flex-grow p-4 md:p-6 flex flex-col bg-gradient-to-br from-ae-dark to-ae-darker min-h-[400px]">
             
             {/* Input Display */}
             <div className="mb-6">
                <label className="text-xs font-bold text-ae-muted uppercase mb-2 block">User Input</label>
-               <div className={`w-full p-4 rounded-lg border transition-all min-h-[80px] text-sm font-mono ${input ? 'bg-ae-card border-ae-accent/30 text-ae-light' : 'bg-black/20 border-white/5 text-ae-muted italic'}`}>
-                 {input || "Select a scenario from the left to begin..."}
+               <div className={`w-full p-4 rounded-lg border transition-all min-h-[60px] md:min-h-[80px] text-sm font-mono ${input ? 'bg-ae-card border-ae-accent/30 text-ae-light' : 'bg-black/20 border-white/5 text-ae-muted italic'}`}>
+                 {input || "Select a scenario from the list to begin..."}
                </div>
             </div>
 
@@ -305,12 +312,12 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
                      className="text-xs flex items-center gap-1 text-ae-muted hover:text-white transition-colors bg-white/5 hover:bg-ae-accent/10 px-3 py-1.5 rounded border border-white/10 hover:border-ae-accent/30"
                    >
                      {copied ? <Check className="w-3 h-3 text-green-400" /> : <Copy className="w-3 h-3" />}
-                     {copied ? 'Copied Full Context' : 'Copy Prompt Context'}
+                     <span className="hidden sm:inline">{copied ? 'Copied Context' : 'Copy Context'}</span>
                    </button>
                  )}
                </div>
 
-               <div className={`flex-grow rounded-xl border p-6 text-sm leading-relaxed font-mono whitespace-pre-wrap overflow-y-auto transition-all duration-500 relative ${
+               <div className={`flex-grow rounded-xl border p-4 md:p-6 text-sm leading-relaxed font-mono whitespace-pre-wrap overflow-y-auto transition-all duration-500 relative ${
                  response 
                    ? 'bg-ae-card border-ae-accent/20 text-ae-light shadow-[0_0_30px_-10px_rgba(245,158,11,0.1)]' 
                    : 'bg-black/20 border-white/5 text-ae-muted/30 flex items-center justify-center'
@@ -347,9 +354,9 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
             {response && (
               <div className="mt-4 pt-4 border-t border-white/5 animate-in slide-in-from-bottom-2 fade-in duration-500">
                 <p className="text-xs text-ae-muted flex items-center gap-2 bg-ae-accent/5 p-3 rounded border border-ae-accent/10">
-                  <ExternalLink className="w-3 h-3 text-ae-accent" />
+                  <ExternalLink className="w-3 h-3 text-ae-accent flex-shrink-0" />
                   <span className="flex-grow">
-                    <strong>Like this result?</strong> Copy the prompt context above and test it in your own environment (ChatGPT, Gemini, Claude) to verify the architecture.
+                    <strong>Like this result?</strong> Copy the prompt context above to test it.
                   </span>
                 </p>
               </div>
@@ -359,12 +366,12 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
         </div>
 
         {/* Footer CTA */}
-        <div className="p-4 border-t border-white/10 bg-ae-darker flex justify-between items-center">
+        <div className="p-4 border-t border-white/10 bg-ae-darker flex justify-between items-center flex-shrink-0">
           <div className="text-xs text-ae-muted hidden sm:block">
-            * Simulation uses pre-validated outputs to demonstrate tool logic.
+            * Simulation uses pre-validated outputs.
           </div>
           <Button size="sm" className="ml-auto font-bold shadow-[0_0_15px_-5px_rgba(245,158,11,0.4)]">
-            Purchase Full Tool (${tool.fullPrice})
+            Purchase Full Tool
           </Button>
         </div>
       </div>

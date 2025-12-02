@@ -9,6 +9,7 @@ import ProductContact from './pages/ProductContact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfUse from './pages/TermsOfUse';
 import CookiePolicy from './pages/CookiePolicy';
+import ToolDetail from './pages/ToolDetail';
 import TeaserModal from './components/TeaserModal';
 import { Tool } from './types';
 
@@ -29,6 +30,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home onTryTeaser={handleOpenTeaser} />} />
           <Route path="/products" element={<Products onTryTeaser={handleOpenTeaser} />} />
+          <Route path="/products/:toolId" element={<ToolDetail onTryTeaser={handleOpenTeaser} />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/product-contact" element={<ProductContact />} />

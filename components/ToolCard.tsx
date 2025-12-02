@@ -22,10 +22,19 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, onTryTeaser }) => {
         </span>
       </div>
       
-      <h3 className="text-xl font-serif font-bold text-ae-light mb-2">{tool.name}</h3>
+      <Link to={`/products/${tool.id}`} className="block group-hover:opacity-100 transition-opacity">
+        <h3 className="text-xl font-serif font-bold text-ae-light mb-2 hover:text-ae-accent transition-colors">
+          {tool.name}
+        </h3>
+      </Link>
+      
       <p className="text-sm text-ae-muted mb-4 flex-grow">{tool.description}</p>
       
-      <div className="space-y-3 mt-4">
+      <Link to={`/products/${tool.id}`} className="text-xs font-bold text-ae-accent hover:underline mb-4 inline-block">
+        View Details & Specs
+      </Link>
+
+      <div className="space-y-3 mt-auto">
         <Button 
           variant="primary" 
           size="sm" 
