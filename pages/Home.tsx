@@ -92,15 +92,15 @@ const Home: React.FC<HomeProps> = ({ onTryTeaser }) => {
         <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-ae-accent/20 via-ae-darker/80 to-ae-darker opacity-90"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl">
+          <div className="max-w-4xl">
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6">
-              Scale Your <br />
+              Scale Your Creativity <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-ae-accent to-amber-200">
-                Creative Vision
+                With AEstruct's Production OS
               </span>
             </h1>
             <p className="text-xl text-ae-muted font-bold mb-10 max-w-2xl leading-relaxed">
-              AEstruct provides specialized production support AI tools for content creators, because sustainable success isn't just about inspiration. It's about having the operational infrastructure to turn ideas into repeatable wins.
+              AEstruct provides specialized AI tools for content creators. Because sustainable success isn't just about inspiration. It's about having the operational infrastructure to turn ideas into repeatable wins.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/products">

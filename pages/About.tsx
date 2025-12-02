@@ -46,7 +46,7 @@ const About: React.FC = () => {
           AEstruct Inc. was founded on a simple premise: <strong>Creativity scales better with structure.</strong>
         </p>
         <p className="text-lg text-ae-muted leading-relaxed">
-          In the rapidly evolving landscape of digital media, small to mid-size production companies often lack the "back-office" resources of major studios. We provide that infrastructure through intelligent AI tooling, allowing content creators to focus on what matters most: the story.
+          AEstruct is an AI-powered consultancy that gives independent film, television, and digital content creators the strategic infrastructure of a major studio. Our Production OS integrates script analysis, budget forecasting, rights clearance, pitch optimization, and distribution planning into a unified ecosystem—delivering actionable insights in 90 seconds while scaling to comprehensive strategic packages when you need them. We help producers stop managing chaos and start orchestrating success.
         </p>
       </section>
 
