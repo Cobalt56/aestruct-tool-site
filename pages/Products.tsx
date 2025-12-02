@@ -67,8 +67,8 @@ const LazyToolCard: React.FC<{ tool: Tool; onTryTeaser: (tool: Tool) => void }> 
 
 const Products: React.FC<ProductsProps> = ({ onTryTeaser }) => {
   usePageSEO({
-    title: "Our AI Tools | AEstruct Inc.",
-    description: "Explore AEstruct's suite of 8 AI tools for media production. From Script Analysis to Budget Forecasting, optimize workflows with professional prompt engineering."
+    title: "Production OS Tool Suite | AEstruct Inc.",
+    description: "Explore AEstruct's Production OS suite of 8 AI tools. From Script Analysis to Budget Forecasting, optimize workflows with professional prompt engineering."
   });
 
   const [filter, setFilter] = useState<string>('All');
@@ -82,7 +82,7 @@ const Products: React.FC<ProductsProps> = ({ onTryTeaser }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-serif font-bold text-white mb-4">Our Tool Suite</h1>
+        <h1 className="text-4xl font-serif font-bold text-white mb-4">Production OS Tool Suite</h1>
         <p className="text-ae-muted max-w-2xl mx-auto">
           Professional-grade prompt engineering packages designed to optimize every stage of the production pipeline.
         </p>
