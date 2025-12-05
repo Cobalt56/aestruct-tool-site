@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { NAV_ITEMS } from '../constants';
@@ -79,6 +78,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <button 
               className="md:hidden text-ae-light p-3 hover:bg-ae-card rounded-lg transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMobileMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
             </button>
@@ -155,19 +155,25 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     href="https://www.linkedin.com/company/aestruct-inc/?viewAsMember=true" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-ae-muted hover:text-ae-accent transition-colors"
+                    className="text-ae-muted hover:text-ae-accent transition-colors relative group"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="w-6 h-6" />
+                    <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs font-bold text-ae-darker bg-ae-accent rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-lg">
+                      LinkedIn
+                    </span>
                   </a>
                   <a 
                     href="https://www.youtube.com/@AEstructInc" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-ae-muted hover:text-ae-accent transition-colors"
+                    className="text-ae-muted hover:text-ae-accent transition-colors relative group"
                     aria-label="YouTube"
                   >
                     <Youtube className="w-6 h-6" />
+                    <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs font-bold text-ae-darker bg-ae-accent rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-lg">
+                      YouTube
+                    </span>
                   </a>
                 </li>
               </ul>

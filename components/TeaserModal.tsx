@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Tool, TeaserScenario } from '../types';
 import Button from './Button';
@@ -162,7 +161,11 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
               <p className="text-ae-muted text-xs font-mono hidden sm:block">v3.0 // System Logic Preview</p>
             </div>
           </div>
-          <button onClick={onClose} className="text-ae-muted hover:text-white transition-colors p-2 hover:bg-white/5 rounded-full">
+          <button 
+            onClick={onClose} 
+            className="text-ae-muted hover:text-white transition-colors p-2 hover:bg-white/5 rounded-full"
+            aria-label="Close modal"
+          >
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -310,6 +313,7 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
                    <button 
                      onClick={copyPrompt} 
                      className="text-xs flex items-center gap-1 text-ae-muted hover:text-white transition-colors bg-white/5 hover:bg-ae-accent/10 px-3 py-1.5 rounded border border-white/10 hover:border-ae-accent/30"
+                     aria-label={copied ? 'Context copied' : 'Copy context to clipboard'}
                    >
                      {copied ? <Check className="w-3 h-3 text-green-400" /> : <Copy className="w-3 h-3" />}
                      <span className="hidden sm:inline">{copied ? 'Copied Context' : 'Copy Context'}</span>
