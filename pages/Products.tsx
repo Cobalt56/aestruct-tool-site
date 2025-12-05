@@ -89,11 +89,13 @@ const Products: React.FC<ProductsProps> = ({ onTryTeaser }) => {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap justify-center gap-2 mb-12">
+      <div className="flex flex-wrap justify-center gap-2 mb-12" role="group" aria-label="Tool category filter">
         {categories.map(cat => (
           <button
             key={cat}
             onClick={() => setFilter(cat)}
+            aria-pressed={filter === cat}
+            aria-label={`Filter by category: ${cat}`}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
               filter === cat 
                 ? 'bg-ae-accent text-ae-darker' 
