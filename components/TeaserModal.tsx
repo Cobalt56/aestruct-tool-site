@@ -77,8 +77,10 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
   };
 
   const clearHistory = () => {
-    setHistory([]);
-    localStorage.removeItem(`ae_history_${tool.id}`);
+    if (window.confirm('Are you sure you want to clear your simulation history for this tool?')) {
+      setHistory([]);
+      localStorage.removeItem(`ae_history_${tool.id}`);
+    }
   };
 
   const loadHistoryItem = (item: HistoryItem) => {
@@ -288,7 +290,7 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
                    <div className="space-y-3">
                      <div className="flex justify-between items-center mb-2 px-1">
                        <span className="text-[10px] text-ae-muted uppercase font-bold">Recent Runs</span>
-                       <button onClick={clearHistory} className="text-[10px] text-red-400 hover:text-red-300 flex items-center gap-1">
+                       <button onClick={clearHistory} className="text-[10px] text-red-400 hover:text-red-300 flex items-center gap-1 transition-colors">
                          <Trash2 className="w-3 h-3" /> Clear
                        </button>
                      </div>
