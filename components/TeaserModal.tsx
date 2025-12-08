@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Tool, TeaserScenario } from '../types';
 import Button from './Button';
-import { X, Copy, Check, Sparkles, ExternalLink, Terminal, Eye, EyeOff, Cpu, Download, Mail } from 'lucide-react';
+import { X, Copy, Check, Sparkles, ExternalLink, Terminal, Eye, EyeOff, Cpu, Download, Mail, History, Clock, Trash2 } from 'lucide-react';
 
 interface TeaserModalProps {
   tool: Tool | null;
   onClose: () => void;
+}
+
+interface HistoryItem {
+  id: string;
+  timestamp: number;
+  label: string;
+  input: string;
+  response: string;
 }
 
 const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
@@ -15,25 +23,69 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
   const [copied, setCopied] = useState(false);
   const [showSystemPrompt, setShowSystemPrompt] = useState(false);
   
+  // Tabs: 'scenarios' or 'history'
+  const [activeTab, setActiveTab] = useState<'scenarios' | 'history'>('scenarios');
+  const [history, setHistory] = useState<HistoryItem[]>([]);
+  
   // Download / Email Gate State
   const [email, setEmail] = useState('');
   const [isRegistered, setIsRegistered] = useState(false);
   const [isSubmittingEmail, setIsSubmittingEmail] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
 
-  // Reset state when tool changes
+  // Load history when tool changes
   useEffect(() => {
-    setInput('');
-    setResponse('');
-    setLoading(false);
-    setShowSystemPrompt(false);
-    setEmail('');
-    setIsRegistered(false);
-    setIsSubmittingEmail(false);
-    setIsDownloading(false);
+    if (tool) {
+      const saved = localStorage.getItem(`ae_history_${tool.id}`);
+      if (saved) {
+        try {
+          setHistory(JSON.parse(saved));
+        } catch (e) {
+          console.error("Failed to parse history", e);
+        }
+      } else {
+        setHistory([]);
+      }
+      
+      // Reset main state
+      setInput('');
+      setResponse('');
+      setLoading(false);
+      setShowSystemPrompt(false);
+      setEmail('');
+      setIsRegistered(false);
+      setIsSubmittingEmail(false);
+      setIsDownloading(false);
+      setActiveTab('scenarios');
+    }
   }, [tool]);
 
   if (!tool) return null;
+
+  const saveToHistory = (scenarioLabel: string, scenarioInput: string, scenarioOutput: string) => {
+    const newItem: HistoryItem = {
+      id: Date.now().toString(),
+      timestamp: Date.now(),
+      label: scenarioLabel,
+      input: scenarioInput,
+      response: scenarioOutput
+    };
+
+    const updatedHistory = [newItem, ...history].slice(0, 20); // Keep last 20 items
+    setHistory(updatedHistory);
+    localStorage.setItem(`ae_history_${tool.id}`, JSON.stringify(updatedHistory));
+  };
+
+  const clearHistory = () => {
+    setHistory([]);
+    localStorage.removeItem(`ae_history_${tool.id}`);
+  };
+
+  const loadHistoryItem = (item: HistoryItem) => {
+    setInput(item.input);
+    setResponse(item.response);
+    setLoading(false);
+  };
 
   const runSimulation = (scenario: TeaserScenario) => {
     setInput(scenario.input);
@@ -44,6 +96,7 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
     setTimeout(() => {
       setLoading(false);
       setResponse(scenario.output);
+      saveToHistory(scenario.label, scenario.input, scenario.output);
     }, 1500);
   };
 
@@ -98,47 +151,43 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
     };
 
     try {
-      // Try the path exactly as defined (relative)
       let fetchUrl = tool.demoFilePath;
-      console.log(`Attempting download from: ${fetchUrl}`);
-      
       let response = await fetch(fetchUrl);
       
-      // If failed, try prepending 'public/' (common in some dev servers)
       if (!response.ok) {
-         console.log(`First attempt failed. Retrying with 'public/${fetchUrl}'`);
          response = await fetch(`public/${fetchUrl}`);
       }
       
-      // If failed, try absolute path (common in production roots)
       if (!response.ok) {
-         console.log(`Second attempt failed. Retrying with '/${fetchUrl}'`);
          response = await fetch(`/${fetchUrl}`);
       }
 
-      // Check Content-Type to ensure we didn't get a 404 HTML page
       const contentType = response.headers.get("content-type");
       const isHtml = contentType && contentType.includes("text/html");
 
       if (response.ok && !isHtml) {
-        // Success: We found the real file
         const content = await response.text();
         triggerDownload(content);
       } else {
-        // Failure: File missing from build or path incorrect
-        console.warn("Real demo file not found. Generating fallback content.");
         const content = generateFallback();
         triggerDownload(content);
       }
       
     } catch (error) {
       console.error("Download failed completely", error);
-      // Last resort fallback
       const content = generateFallback();
       triggerDownload(content);
     } finally {
       setIsDownloading(false);
     }
+  };
+
+  const formatTime = (timestamp: number) => {
+    return new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    }).format(new Date(timestamp));
   };
 
   return (
@@ -173,43 +222,99 @@ const TeaserModal: React.FC<TeaserModalProps> = ({ tool, onClose }) => {
         {/* Body */}
         <div className="flex-grow overflow-y-auto bg-ae-dark flex flex-col md:flex-row">
           
-          {/* Left Panel: Scenarios & Download */}
+          {/* Left Panel: Scenarios, History & Download */}
           <div className="w-full md:w-[350px] lg:w-[400px] p-4 md:p-6 border-b md:border-b-0 md:border-r border-white/10 bg-ae-darker/50 flex flex-col flex-shrink-0">
              
-             {/* Scenarios Section */}
-             <div className="mb-6 flex-shrink-0">
-               <h3 className="text-xs font-bold text-ae-muted uppercase tracking-wider mb-2 flex items-center gap-2">
-                 <Terminal className="w-4 h-4" /> Test Scenarios
-               </h3>
-               <p className="text-xs text-ae-muted leading-relaxed mb-4 hidden md:block">
-                 Select a pre-configured test case to observe how our proprietary system prompts analyze and structure complex data.
-               </p>
-               
-               {/* Mobile: Horizontal Scroll | Desktop: Vertical Stack */}
-               <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 snap-x hide-scrollbar">
-                 {tool.scenarios?.map((scenario) => (
-                   <button
-                     key={scenario.id}
-                     onClick={() => runSimulation(scenario)}
-                     disabled={loading}
-                     className="min-w-[280px] md:min-w-0 snap-center w-full text-left p-4 rounded-lg border border-white/10 hover:border-ae-accent/50 hover:bg-white/5 transition-all group relative overflow-hidden flex-shrink-0"
-                   >
-                     <div className="relative z-10">
-                       <div className="font-bold text-ae-light text-sm group-hover:text-ae-accent transition-colors flex items-center justify-between">
-                         {scenario.label}
-                         <ArrowIcon className="opacity-0 group-hover:opacity-100 transition-opacity transform -rotate-90 w-3 h-3" />
-                       </div>
-                       <div className="text-xs text-ae-muted truncate mt-1 opacity-70 font-mono">
-                         {scenario.input.substring(0, 40)}...
-                       </div>
-                     </div>
-                     {loading && input === scenario.input && (
-                       <div className="absolute inset-0 bg-ae-accent/5 animate-pulse"></div>
-                     )}
-                   </button>
-                 ))}
-               </div>
+             {/* Tab Switcher */}
+             <div className="flex p-1 bg-black/40 rounded-lg mb-6 border border-white/5">
+                <button 
+                  onClick={() => setActiveTab('scenarios')}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-bold uppercase tracking-wide rounded-md transition-all ${activeTab === 'scenarios' ? 'bg-ae-card text-ae-accent shadow-sm' : 'text-ae-muted hover:text-ae-light'}`}
+                >
+                  <Terminal className="w-3 h-3" /> Scenarios
+                </button>
+                <button 
+                  onClick={() => setActiveTab('history')}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-bold uppercase tracking-wide rounded-md transition-all ${activeTab === 'history' ? 'bg-ae-card text-ae-accent shadow-sm' : 'text-ae-muted hover:text-ae-light'}`}
+                >
+                  <History className="w-3 h-3" /> History
+                </button>
              </div>
+
+             {/* Scenarios View */}
+             {activeTab === 'scenarios' && (
+               <div className="flex-shrink-0 animate-in fade-in slide-in-from-left-4 duration-300">
+                 <p className="text-xs text-ae-muted leading-relaxed mb-4 hidden md:block">
+                   Select a pre-configured test case to observe how our proprietary system prompts analyze and structure complex data.
+                 </p>
+                 
+                 {/* Mobile: Horizontal Scroll | Desktop: Vertical Stack */}
+                 <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 snap-x hide-scrollbar">
+                   {tool.scenarios?.map((scenario) => (
+                     <button
+                       key={scenario.id}
+                       onClick={() => runSimulation(scenario)}
+                       disabled={loading}
+                       className="min-w-[280px] md:min-w-0 snap-center w-full text-left p-4 rounded-lg border border-white/10 hover:border-ae-accent/50 hover:bg-white/5 transition-all group relative overflow-hidden flex-shrink-0"
+                     >
+                       <div className="relative z-10">
+                         <div className="font-bold text-ae-light text-sm group-hover:text-ae-accent transition-colors flex items-center justify-between">
+                           {scenario.label}
+                           <ArrowIcon className="opacity-0 group-hover:opacity-100 transition-opacity transform -rotate-90 w-3 h-3" />
+                         </div>
+                         <div className="text-xs text-ae-muted truncate mt-1 opacity-70 font-mono">
+                           {scenario.input.substring(0, 40)}...
+                         </div>
+                       </div>
+                       {loading && input === scenario.input && (
+                         <div className="absolute inset-0 bg-ae-accent/5 animate-pulse"></div>
+                       )}
+                     </button>
+                   ))}
+                 </div>
+               </div>
+             )}
+
+             {/* History View */}
+             {activeTab === 'history' && (
+               <div className="flex-shrink-0 h-[300px] md:h-auto overflow-y-auto animate-in fade-in slide-in-from-right-4 duration-300 pr-1">
+                 {history.length === 0 ? (
+                   <div className="text-center py-10 text-ae-muted border border-dashed border-white/10 rounded-lg">
+                     <History className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                     <p className="text-xs">No simulation history yet.</p>
+                     <p className="text-[10px] opacity-60 mt-1">Run a scenario to save results.</p>
+                   </div>
+                 ) : (
+                   <div className="space-y-3">
+                     <div className="flex justify-between items-center mb-2 px-1">
+                       <span className="text-[10px] text-ae-muted uppercase font-bold">Recent Runs</span>
+                       <button onClick={clearHistory} className="text-[10px] text-red-400 hover:text-red-300 flex items-center gap-1">
+                         <Trash2 className="w-3 h-3" /> Clear
+                       </button>
+                     </div>
+                     {history.map((item) => (
+                       <button
+                         key={item.id}
+                         onClick={() => loadHistoryItem(item)}
+                         className="w-full text-left p-3 rounded-lg border border-white/10 hover:border-ae-accent/30 hover:bg-white/5 transition-all group relative"
+                       >
+                         <div className="flex justify-between items-start mb-1">
+                            <span className="font-bold text-ae-light text-xs group-hover:text-ae-accent transition-colors">
+                              {item.label || "Custom Simulation"}
+                            </span>
+                            <span className="text-[10px] text-ae-muted font-mono flex items-center gap-1">
+                              <Clock className="w-3 h-3" /> {formatTime(item.timestamp)}
+                            </span>
+                         </div>
+                         <div className="text-[10px] text-ae-muted line-clamp-2 font-mono opacity-80">
+                           {item.response}
+                         </div>
+                       </button>
+                     ))}
+                   </div>
+                 )}
+               </div>
+             )}
 
              {/* Download Section (Pushed to bottom on desktop, flows naturally on mobile) */}
              <div className="md:mt-auto pt-6 border-t border-white/10">

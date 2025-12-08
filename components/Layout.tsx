@@ -6,13 +6,18 @@ import CookieConsent from './CookieConsent';
 import { Menu, X, Linkedin, Youtube } from 'lucide-react';
 
 // Reusable Scalable Logo Component
-// This image will always fill 100% of the width and height of its parent container.
+// This SVG will always fill 100% of the width and height of its parent container.
 const BrandLogo = ({ className = "" }: { className?: string }) => (
-  <img 
-    src="/assets/logo.png"
-    alt="AEstruct Logo"
-    className={`w-full h-full object-contain ${className}`}
-  />
+  <svg 
+    viewBox="0 0 100 100" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+    className={`w-full h-full ${className}`}
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <path d="M0 50C0 22.3858 22.3858 0 50 0H100V100H50V50H0Z" fill="#F97316"/>
+    <rect x="0" y="50" width="50" height="50" fill="#F59E0B"/>
+  </svg>
 );
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
