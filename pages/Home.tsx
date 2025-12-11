@@ -69,8 +69,8 @@ const LazyToolCard: React.FC<{ tool: Tool; onTryTeaser: (tool: Tool) => void }> 
 
 const Home: React.FC<HomeProps> = ({ onTryTeaser }) => {
   usePageSEO({
-    title: "AEstruct Inc. | Media & Entertainment AI Consultancy",
-    description: "AEstruct provides AI consultancy for media & entertainment. Scale production with specialized tools for script analysis, budgeting, and rights clearance."
+    title: "AEstruct Inc. | AI Tools for Media & Creator Economy",
+    description: "AEstruct provides specialized AI tools for media studios and solo creators. Scale production with tools for script analysis, budgeting, and algorithm optimization."
   });
 
   // Feature specific Indy Studio tools
@@ -105,7 +105,7 @@ const Home: React.FC<HomeProps> = ({ onTryTeaser }) => {
               </span>
             </h1>
             <p className="text-xl text-ae-muted font-bold mb-10 max-w-2xl leading-relaxed">
-              AEstruct provides specialized AI tools for content creators. Because sustainable success isn't just about inspiration. It's about having the operational infrastructure to turn ideas into repeatable wins.
+              AEstruct provides specialized AI tools for people actually making content, from independent studios to solo creators. Because sustainable success isn't only about inspiration. It's about having the operational infrastructure to turn your ideas into repeatable wins.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/products">

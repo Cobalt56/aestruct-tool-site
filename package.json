@@ -1,13 +1,5 @@
 {
   "name": "aestruct-app",
   "version": "1.0.0",
-  "description": "AEstruct Inc. Application",
-  "main": "server.js",
-  "type": "commonjs",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  }
+  "description": "AEstruct Inc. Application"
 }
