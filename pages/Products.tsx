@@ -1,9 +1,11 @@
+
 import React, { useState, Suspense, lazy, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TOOLS } from '../constants';
-import { Tool, ToolCategory } from '../types';
+import { Tool, ProductLine } from '../types';
 import Button from '../components/Button';
 import { usePageSEO } from '../hooks/usePageSEO';
+import { Briefcase, Video } from 'lucide-react';
 
 // Lazy load the ToolCard component
 const ToolCard = lazy(() => import('../components/ToolCard'));
@@ -68,16 +70,14 @@ const LazyToolCard: React.FC<{ tool: Tool; onTryTeaser: (tool: Tool) => void }> 
 const Products: React.FC<ProductsProps> = ({ onTryTeaser }) => {
   usePageSEO({
     title: "Production OS Tool Suite | AEstruct Inc.",
-    description: "Explore AEstruct's Production OS suite of 8 AI tools. From Script Analysis to Budget Forecasting, optimize workflows with professional prompt engineering."
+    description: "Explore AEstruct's Production OS suite. From Indy Studio tools to Creator Economy accelerators, optimize workflows with professional prompt engineering."
   });
 
-  const [filter, setFilter] = useState<string>('All');
+  const [productLineFilter, setProductLineFilter] = useState<string>('All');
 
-  const categories = ['All', ...Object.values(ToolCategory)];
-
-  const filteredTools = filter === 'All' 
+  const filteredTools = productLineFilter === 'All' 
     ? TOOLS 
-    : TOOLS.filter(t => t.category === filter);
+    : TOOLS.filter(t => t.productLine === productLineFilter);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -88,31 +88,54 @@ const Products: React.FC<ProductsProps> = ({ onTryTeaser }) => {
         </p>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="flex flex-wrap justify-center gap-2 mb-12" role="group" aria-label="Tool category filter">
-        {categories.map(cat => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            aria-pressed={filter === cat}
-            aria-label={`Filter by category: ${cat}`}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-              filter === cat 
-                ? 'bg-ae-accent text-ae-darker' 
-                : 'bg-ae-card text-ae-muted hover:text-white hover:bg-ae-card/80'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+      {/* Product Line Filter Tabs */}
+      <div className="flex justify-center mb-12">
+        <div className="bg-ae-card/50 p-1.5 rounded-xl border border-white/5 inline-flex gap-2">
+            <button
+              onClick={() => setProductLineFilter('All')}
+              className={`px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 ${
+                productLineFilter === 'All' 
+                  ? 'bg-ae-accent text-ae-darker shadow-lg' 
+                  : 'text-ae-muted hover:text-white hover:bg-white/5'
+              }`}
+            >
+              All Skills
+            </button>
+            <button
+              onClick={() => setProductLineFilter(ProductLine.INDY_STUDIO)}
+              className={`px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 flex items-center gap-2 ${
+                productLineFilter === ProductLine.INDY_STUDIO 
+                  ? 'bg-ae-accent text-ae-darker shadow-lg' 
+                  : 'text-ae-muted hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Briefcase className="w-4 h-4" /> Indy Studio Skills
+            </button>
+            <button
+              onClick={() => setProductLineFilter(ProductLine.CREATOR)}
+              className={`px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 flex items-center gap-2 ${
+                productLineFilter === ProductLine.CREATOR 
+                  ? 'bg-ae-accent text-ae-darker shadow-lg' 
+                  : 'text-ae-muted hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Video className="w-4 h-4" /> Creator Skills
+            </button>
+        </div>
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-in fade-in duration-500">
         {filteredTools.map(tool => (
           <LazyToolCard key={tool.id} tool={tool} onTryTeaser={onTryTeaser} />
         ))}
       </div>
+      
+      {filteredTools.length === 0 && (
+        <div className="text-center py-20 border border-dashed border-white/10 rounded-xl">
+           <p className="text-ae-muted">No tools found in this category.</p>
+        </div>
+      )}
 
       {/* CTA Box */}
       <div className="mt-24 bg-gradient-to-r from-ae-card to-ae-dark border border-ae-accent/20 rounded-2xl p-10 text-center">

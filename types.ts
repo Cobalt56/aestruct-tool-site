@@ -6,6 +6,7 @@ export interface Tool {
   description: string;
   fullPrice: number;
   category: ToolCategory;
+  productLine: ProductLine;
   systemPromptTeaser: string;
   features: string[];
   demoPlaceholder: string;
@@ -21,12 +22,21 @@ export interface TeaserScenario {
   output: string;
 }
 
-export enum ToolCategory {
-  SCRIPT = 'Script & Content Analysis',
-  FINANCE = 'Finance & Operations',
-  MARKET = 'Market & Strategy',
-  PRODUCTION = 'Production Management'
-}
+export const ToolCategory = {
+  SCRIPT: 'Script & Content Analysis',
+  FINANCE: 'Finance & Operations',
+  MARKET: 'Market & Strategy',
+  PRODUCTION: 'Production Management'
+} as const;
+
+export type ToolCategory = typeof ToolCategory[keyof typeof ToolCategory];
+
+export const ProductLine = {
+  INDY_STUDIO: 'Indy Studio Production Skills',
+  CREATOR: 'Creator Production Skills'
+} as const;
+
+export type ProductLine = typeof ProductLine[keyof typeof ProductLine];
 
 export interface ChatMessage {
   role: 'user' | 'model' | 'system';

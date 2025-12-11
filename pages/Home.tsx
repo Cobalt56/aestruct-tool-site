@@ -1,9 +1,10 @@
+
 import React, { Suspense, lazy, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { TOOLS } from '../constants';
 import Button from '../components/Button';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { Tool } from '../types';
+import { Tool, ProductLine } from '../types';
 import { usePageSEO } from '../hooks/usePageSEO';
 
 // Lazy load the ToolCard component
@@ -72,8 +73,12 @@ const Home: React.FC<HomeProps> = ({ onTryTeaser }) => {
     description: "AEstruct provides AI consultancy for media & entertainment. Scale production with specialized tools for script analysis, budgeting, and rights clearance."
   });
 
-  // Feature only 3 tools on home page
-  const featuredTools = TOOLS.slice(0, 3);
+  // Feature specific Indy Studio tools
+  const featuredIndyTools = TOOLS.filter(t => t.productLine === ProductLine.INDY_STUDIO).slice(0, 3);
+  
+  // Feature specific Creator tools requested: Algorithm Planner, Tech Optimizer, Economics Dashboard
+  const featuredCreatorToolIds = ['algorithm-planner', 'creator-tech-optimizer', 'creator-economics-dashboard'];
+  const featuredCreatorTools = TOOLS.filter(t => featuredCreatorToolIds.includes(t.id));
 
   return (
     <div className="space-y-10 pb-20">
@@ -118,30 +123,52 @@ const Home: React.FC<HomeProps> = ({ onTryTeaser }) => {
         </div>
       </section>
 
-      {/* Featured Tools */}
+      {/* Featured Indy Studio Tools */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-end mb-10">
           <div>
-            <h2 className="text-3xl font-serif font-bold text-white mb-2">Featured AI Tools</h2>
-            <p className="text-ae-muted">Test drive our proprietary prompt engineering logic.</p>
+            <span className="text-ae-accent font-bold uppercase tracking-wider text-xs mb-2 block">Enterprise Grade</span>
+            <h2 className="text-3xl font-serif font-bold text-white mb-2">Indy Studio Production Skills</h2>
+            <p className="text-ae-muted">Optimize workflows for film, TV, and studio production.</p>
           </div>
           <Link to="/products" className="hidden md:inline-flex text-ae-accent hover:text-white transition-colors items-center">
-            View All Tools <ArrowRight className="ml-1 w-4 h-4" />
+            View All Studio Tools <ArrowRight className="ml-1 w-4 h-4" />
           </Link>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredTools.map(tool => (
+          {featuredIndyTools.map(tool => (
             <LazyToolCard key={tool.id} tool={tool} onTryTeaser={onTryTeaser} />
           ))}
         </div>
+      </section>
+
+      {/* Featured Creator Tools */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pt-10 border-t border-white/5">
+        <div className="flex justify-between items-end mb-10">
+          <div>
+             <span className="text-green-400 font-bold uppercase tracking-wider text-xs mb-2 block">New Arrival</span>
+            <h2 className="text-3xl font-serif font-bold text-white mb-2">Creator Economy Toolkit</h2>
+            <p className="text-ae-muted">Accelerate growth for solo creators and digital influencers.</p>
+          </div>
+          <Link to="/products" className="hidden md:inline-flex text-ae-accent hover:text-white transition-colors items-center">
+            View All Creator Skills <ArrowRight className="ml-1 w-4 h-4" />
+          </Link>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredCreatorTools.map(tool => (
+            <LazyToolCard key={tool.id} tool={tool} onTryTeaser={onTryTeaser} />
+          ))}
+        </div>
+        
         <div className="mt-8 text-center md:hidden">
-           <Link to="/products" className="text-ae-accent font-medium">View All Tools &rarr;</Link>
+           <Link to="/products" className="text-ae-accent font-medium">View Full Catalog &rarr;</Link>
         </div>
       </section>
 
       {/* Value Prop */}
-      <section className="bg-ae-card/30 border-y border-white/5 py-20">
+      <section className="bg-ae-card/30 border-y border-white/5 py-20 mt-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>

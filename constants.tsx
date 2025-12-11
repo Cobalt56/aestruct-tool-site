@@ -1,5 +1,5 @@
 
-import { Tool, ToolCategory } from './types';
+import { Tool, ToolCategory, ProductLine } from './types';
 import { 
   FileText, 
   TrendingUp, 
@@ -8,11 +8,20 @@ import {
   Calendar,
   Shield,
   ScrollText, 
-  Banknote
+  Banknote,
+  Share2,
+  Briefcase,
+  Magnet,
+  ShieldCheck,
+  Laptop,
+  Rocket,
+  BarChart3,
+  FileBadge
 } from 'lucide-react';
 import React from 'react';
 
 export const TOOLS: Tool[] = [
+  // --- INDY STUDIO PRODUCTION SKILLS ---
   {
     id: 'ai-tool-rec',
     name: 'AI Tool Recommendation Engine – V3',
@@ -20,6 +29,7 @@ export const TOOLS: Tool[] = [
     description: 'Analyzes specific production bottlenecks and recommends the optimal AI stack to automate and solve them.',
     fullPrice: 149,
     category: ToolCategory.PRODUCTION,
+    productLine: ProductLine.INDY_STUDIO,
     systemPromptTeaser: "You are an AI Implementation Architect for media. Given a specific production bottleneck (e.g., 'slow post-production spotting' or 'contract drafting'), recommend 3 specific AI tools or workflows to solve it, explaining the ROI.",
     features: ['Custom Stack Design', 'ROI Calculator', 'Integration Roadmap'],
     demoPlaceholder: "Describe a bottleneck (e.g., 'Our editors spend too long transcribing interviews')...",
@@ -42,11 +52,12 @@ export const TOOLS: Tool[] = [
   },
   {
     id: 'budget-forecast-pro',
-    name: 'Budget Forecasting & Variance Tracker Pro –V3',
+    name: 'Budget Forecasting & Variance Tracker Pro – V3',
     tagline: 'Real-time financial modeling',
     description: 'Creates detailed budget forecasts and tracks real-time variance against actuals for multi-episodic content.',
     fullPrice: 299,
     category: ToolCategory.FINANCE,
+    productLine: ProductLine.INDY_STUDIO,
     systemPromptTeaser: "You are a seasoned production accountant. Given a project type (e.g. Feature, Series) and a specific financial dilemma or variance (e.g. 'Locations over by 15%'), predict the impact on the contingency fund and suggest 2 actionable cost-saving measures.",
     features: ['Real-time Variance Tracking', 'Union Rate Integration', 'Cash Flow Modeling'],
     demoPlaceholder: "Input scenario (e.g., 'Series, Art Dept is 20k over budget')...",
@@ -74,6 +85,7 @@ export const TOOLS: Tool[] = [
     description: 'Generates optimized publishing schedules for multi-platform campaigns (TikTok, YT, IG) based on engagement trends.',
     fullPrice: 199,
     category: ToolCategory.MARKET,
+    productLine: ProductLine.INDY_STUDIO,
     systemPromptTeaser: "You are a Digital Marketing Strategist. Create a micro-schedule for a specific content asset (e.g. Trailer Drop) across Instagram, TikTok, and Twitter. Define the timing, caption hook, and platform-specific nuance for each.",
     features: ['Platform-Specific Timing', 'Engagement Hook Generator', 'Asset Recycling Plan'],
     demoPlaceholder: "Describe the asset (e.g., 'Behind the scenes blooper reel')...",
@@ -101,6 +113,7 @@ export const TOOLS: Tool[] = [
     description: 'Refines pitch narratives and structural flow to align with current streamer and studio buying mandates.',
     fullPrice: 249,
     category: ToolCategory.MARKET,
+    productLine: ProductLine.INDY_STUDIO,
     systemPromptTeaser: "You are a Senior VP of Development at a major studio. Critique the provided pitch deck slide text. Focus on the 'hook', commercial viability, and clarity. Be ruthless but constructive.",
     features: ['Hook Refinement', 'Market Fit Analysis', 'Visual Narrative Flow'],
     demoPlaceholder: "Paste a slide text (e.g., 'Logline: A boy meets a girl in space')...",
@@ -128,6 +141,7 @@ export const TOOLS: Tool[] = [
     description: 'Instantly generates standardized call sheets, shooting schedules, and daily production reports from raw input data.',
     fullPrice: 199,
     category: ToolCategory.PRODUCTION,
+    productLine: ProductLine.INDY_STUDIO,
     systemPromptTeaser: "You are a Production Coordinator. Draft a specific production document clause or communication (e.g., 'Deal Memo text', 'Crew Email regarding rain delay') based on the provided context. Keep it professional and standard industry format.",
     features: ['Auto-Call Sheets', 'DPR Generation', 'Crew Communication Templates'],
     demoPlaceholder: "Input context (e.g., 'Tell crew call time is pushed 2 hours')...",
@@ -155,6 +169,7 @@ export const TOOLS: Tool[] = [
     description: 'Scans script elements, prop lists, and set dressing for potential copyright, trademark, or E&O insurance risks.',
     fullPrice: 299,
     category: ToolCategory.PRODUCTION,
+    productLine: ProductLine.INDY_STUDIO,
     systemPromptTeaser: "You are a Clearance Supervisor. Review the provided list of script elements or set dressing items. Flag any potential trademark issues, copyright infringements, or E&O risks.",
     features: ['Script Clearance Scan', 'Prop Risk Assessment', 'E&O Red Flagging'],
     demoPlaceholder: "List items (e.g., 'Character wears Mickey Mouse shirt')...",
@@ -182,6 +197,7 @@ export const TOOLS: Tool[] = [
     description: 'Synthesizes emerging narrative trends from social listening and streaming data to inform development slates.',
     fullPrice: 179,
     category: ToolCategory.MARKET,
+    productLine: ProductLine.INDY_STUDIO,
     systemPromptTeaser: "You are a Market Researcher for a streaming platform. Based on a provided genre or topic, identify 3 emerging narrative trends or sub-genres that are gaining traction with Gen Z/Alpha audiences.",
     features: ['Genre Heatmaps', 'Audience Sentiment Analysis', 'Format Prediction'],
     demoPlaceholder: "Input genre (e.g., 'True Crime')...",
@@ -209,6 +225,7 @@ export const TOOLS: Tool[] = [
     description: 'Comprehensive screenplay analysis focusing on character arcs, thematic resonance, and pacing heatmaps using advanced narrative theory.',
     fullPrice: 199,
     category: ToolCategory.SCRIPT,
+    productLine: ProductLine.INDY_STUDIO,
     systemPromptTeaser: "You are an expert script consultant with 20 years of experience. Analyze the provided logline or scene beat for structural integrity, conflict optimization, and character motivation. Provide a 'Pass', 'Consider', or 'Recommend' assessment rationale.",
     features: ['3-Act Structure Stress Test', 'Character Voice Analysis', 'Theme Consistency Check'],
     demoPlaceholder: "Paste a scene summary or logline...",
@@ -228,10 +245,189 @@ export const TOOLS: Tool[] = [
         output: "ANALYSIS: WEAK MOTIVATION\n\nProblem: 'Evil' is not a motivation; it's a result. This creates a cartoonish antagonist.\n\nFix: Give the villain a noble goal with a horrific method.\n\nSuggestion: The villain wants to save the world from overpopulation (Thanos style) or end all pain by eliminating free will. They should believe they are the Hero. Make the audience agree with their problem, but hate their solution."
       }
     ]
+  },
+
+  // --- CREATOR PRODUCTION SKILLS ---
+  {
+    id: 'algorithm-planner',
+    name: 'Algorithm Aligned Publishing Planner – V1',
+    tagline: 'Maximize organic reach',
+    description: 'Calculates the optimal upload metadata, timing, and cross-platform sequencing to align with current algorithm preferences.',
+    fullPrice: 99,
+    category: ToolCategory.MARKET,
+    productLine: ProductLine.CREATOR,
+    systemPromptTeaser: "You are a YouTube and TikTok Algorithm Expert. Given a video topic and target audience, recommend the optimal title structure, 3 tags, and upload time window to maximize initial velocity.",
+    features: ['Metadata Optimizer', 'Timing Calculator', 'Cross-Platform Sequencing'],
+    demoPlaceholder: "Describe your video (e.g., 'Tech review of iPhone 16 for Gen Z')...",
+    demoFilePath: 'assets/demos/algorithm-planner.md',
+    demoFileSize: '4 KB',
+    scenarios: [
+      {
+        id: 'c1',
+        label: 'Tech Review Optimize',
+        input: "Video: iPhone 16 Review. Audience: Gen Z / Students. Platform: YouTube.",
+        output: "OPTIMIZED STRATEGY:\n\nTITLE FORMAT: High Curiosity + Personal Stakes\nRecommendation: \"I switched to iPhone 16 for 7 days (Was it a mistake?)\"\n\nTAGS:\n1. #iPhone16Review\n2. #AppleEcosystem\n3. #TechSwitch\n\nTIMING:\nUpload: Tuesday at 11:00 AM EST (Captures lunch break viewers + evening peak)."
+      }
+    ]
+  },
+  {
+    id: 'brand-pitch-builder',
+    name: 'Brand Partnership Pitch Builder – V1',
+    tagline: 'Sponsorship deal generator',
+    description: 'Generates professional media kits and personalized cold-outreach emails to secure high-value brand sponsorships.',
+    fullPrice: 129,
+    category: ToolCategory.MARKET,
+    productLine: ProductLine.CREATOR,
+    systemPromptTeaser: "You are a Brand Partnerships Manager. Draft a cold outreach email to a specific brand pitching a sponsorship integration. Focus on the creator's unique audience value, not just view counts.",
+    features: ['Media Kit Generator', 'Cold Email Architect', 'Rate Calculator'],
+    demoPlaceholder: "Brand to pitch (e.g., 'NordVPN') and your niche...",
+    demoFilePath: 'assets/demos/brand-pitch-builder.md',
+    demoFileSize: '4 KB',
+    scenarios: [
+      {
+        id: 'c1',
+        label: 'Cold Pitch: Tech',
+        input: "Pitching: Logitech. My Niche: Coding tutorials / Desk setups. Stats: 50k subs, high engagement.",
+        output: "SUBJECT: Partnership Idea: The Ultimate Coder's Desk Setup (feat. MX Master 3)\n\nHi [Name],\n\nI'm a developer and creator reaching 50k highly engaged software engineers. My audience constantly asks about productivity gear.\n\nI'm planning a 'Dream Desk 2025' series and I'd love to feature the MX Master 3S as the essential coding mouse. Unlike generic tech reviews, I focus on specific workflow shortcuts that save developers time.\n\nAre you open to discussing an integration for Q2?\n\nBest,\n[Your Name]"
+      }
+    ]
+  },
+  {
+    id: 'content-hook-analyzer',
+    name: 'Content Hook & Retention Analyzer – V1',
+    tagline: 'Stop the scroll',
+    description: 'Analyzes video intros and script structures to predict drop-off points and maximize viewer retention.',
+    fullPrice: 89,
+    category: ToolCategory.SCRIPT,
+    productLine: ProductLine.CREATOR,
+    systemPromptTeaser: "You are a Retention Specialist. Analyze the first 30 seconds of a video script. Identification friction points that will cause drop-off and suggest a stronger visual or narrative hook.",
+    features: ['Intro Stress Test', 'Pacing Heatmap', 'Visual Hook Suggestions'],
+    demoPlaceholder: "Paste your video intro script...",
+    demoFilePath: 'assets/demos/content-hook-analyzer.md',
+    demoFileSize: '5 KB',
+    scenarios: [
+      {
+        id: 'c1',
+        label: 'Vlog Intro Fix',
+        input: "Intro: 'Hey guys, welcome back to the channel. Today we are going to talk about how I organized my closet. Don't forget to subscribe.'",
+        output: "RETENTION ALERT: HIGH DROP-OFF RISK.\n\nIssue: Generic greeting. Zero curiosity gap. 10 seconds wasted.\n\nTHE FIX: Start *in media res* with the stakes.\n\nBETTER VERSION:\n(Visual: Pile of clothes falling on you)\n'This closet has ruined my morning routine for 3 years. Today, we're fixing it, or I'm burning it down. Let's go.'"
+      }
+    ]
+  },
+  {
+    id: 'copyright-shield',
+    name: 'Copyright & Monetization Shield – V1',
+    tagline: 'Protect your revenue',
+    description: 'Scans content plans for DMCA risks, fair use compliance, and demonetization triggers before you upload.',
+    fullPrice: 119,
+    category: ToolCategory.PRODUCTION,
+    productLine: ProductLine.CREATOR,
+    systemPromptTeaser: "You are a Digital Rights Manager. Assess the described video segment for DMCA risk and Fair Use viability. Provide a risk level (Low/Med/High) and mitigation strategy.",
+    features: ['Fair Use Assessment', 'Music Rights Checker', 'Demonetization Scan'],
+    demoPlaceholder: "Describe usage (e.g., 'Reacting to 3 minutes of a Disney movie')...",
+    demoFilePath: 'assets/demos/copyright-shield.md',
+    demoFileSize: '4 KB',
+    scenarios: [
+      {
+        id: 'c1',
+        label: 'Movie Reaction',
+        input: "I want to play 5 minutes of 'The Avengers' continuously while I sit in the corner and nod.",
+        output: "RISK LEVEL: CRITICAL (99% Claim Rate).\n\nReasoning: This is not Fair Use. It is a market substitute for the original work. 'Nodding' is not transformative commentary.\n\nMITIGATION:\n1. Use clips shorter than 7 seconds.\n2. Constantly pause the video to speak specific critique.\n3. Remove the original audio and dub over it.\n\nRecommendation: Do not upload as described."
+      }
+    ]
+  },
+  {
+    id: 'creator-business-docs',
+    name: 'Creator Business Documents – V1',
+    tagline: 'Legal protection suite',
+    description: 'Instantly generates editor contracts, collaboration agreements, and model releases tailored for the creator economy.',
+    fullPrice: 149,
+    category: ToolCategory.PRODUCTION,
+    productLine: ProductLine.CREATOR,
+    systemPromptTeaser: "You are a Legal Consultant for creators. Draft a clause for a specific agreement (e.g., Editor Contract) protecting the creator's IP rights and defining revision limits.",
+    features: ['Editor Agreements', 'Collab Contracts', 'Release Forms'],
+    demoPlaceholder: "Describe agreement need (e.g., 'Hiring a freelance editor')...",
+    demoFilePath: 'assets/demos/creator-business-docs.md',
+    demoFileSize: '6 KB',
+    scenarios: [
+      {
+        id: 'c1',
+        label: 'Editor Revision Clause',
+        input: "Hiring a video editor. Need a clause to stop endless revisions.",
+        output: "CLAUSE: REVISIONS & APPROVALS\n\n'The Contractor agrees to provide up to two (2) rounds of revisions per Video at no additional cost, provided such requests are submitted within 48 hours of draft delivery. Any additional revisions beyond the included two rounds, or revisions requesting changes to previously approved storyboards/scripts, shall be billed at the Contractor’s hourly rate of $X/hr.'"
+      }
+    ]
+  },
+  {
+    id: 'creator-economics-dashboard',
+    name: 'Creator Economics Dashboard – V1',
+    tagline: 'Income stream tracking',
+    description: 'Aggregates and projects revenue from AdSense, sponsorships, Patreon, and affiliate links to forecast monthly cash flow.',
+    fullPrice: 179,
+    category: ToolCategory.FINANCE,
+    productLine: ProductLine.CREATOR,
+    systemPromptTeaser: "You are a Financial Planner for creators. Given monthly view counts and RPM, project AdSense revenue and suggest one diversification stream to stabilize income.",
+    features: ['AdSense Forecaster', 'Sponsorship Tracker', 'Affiliate Projection'],
+    demoPlaceholder: "Stats: 500k monthly views, $4 RPM...",
+    demoFilePath: 'assets/demos/creator-economics-dashboard.md',
+    demoFileSize: '7 KB',
+    scenarios: [
+      {
+        id: 'c1',
+        label: 'Revenue Projection',
+        input: "Views: 500k/mo. RPM: $4.00. Goal: Hit $5k/mo total revenue.",
+        output: "CURRENT STATE:\nAdSense: ~$2,000/mo.\nGap to Goal: $3,000/mo.\n\nSTRATEGY TO BRIDGE GAP:\n1. Affiliate Program: Review the gear you use. With 500k views, a 1% click rate and 2% conversion on a $100 item = ~$1,000/mo.\n2. Mid-Roll Placement: Manually place ad breaks at high-retention points to increase RPM to $5.50.\n3. Digital Product: Sell a $20 LUT pack or Guide. Need only 100 sales/mo to cover the rest."
+      }
+    ]
+  },
+  {
+    id: 'creator-tech-optimizer',
+    name: 'Creator Tech Stack Optimizer – V1',
+    tagline: 'Gear & software advisor',
+    description: 'Recommends the perfect camera, audio, and software setup based on your specific niche, budget, and recording environment.',
+    fullPrice: 89,
+    category: ToolCategory.PRODUCTION,
+    productLine: ProductLine.CREATOR,
+    systemPromptTeaser: "You are a Production Technologist. Recommend a 3-item starter kit (Camera, Audio, Light) for a specific creator niche and budget constraint. Explain why each item fits their workflow.",
+    features: ['Custom Gear Kits', 'Software Stack Design', 'Upgrade Roadmap'],
+    demoPlaceholder: "Niche (e.g., 'Talking head business') & Budget ($1000)...",
+    demoFilePath: 'assets/demos/creator-tech-optimizer.md',
+    demoFileSize: '5 KB',
+    scenarios: [
+      {
+        id: 'c1',
+        label: 'Talking Head Starter',
+        input: "Niche: Business Education. Environment: Small home office. Budget: $800 total.",
+        output: "RECOMMENDED KIT (Efficiency Focus):\n\n1. CAMERA: Sony ZV-E10 (Used) or iPhone 15 as Main Cam.\nWhy: Fast autofocus, good low light, clean HDMI out for streaming.\n\n2. AUDIO: DJI Mic (Single Transmitter).\nWhy: Wireless freedom, safety track recording. Bad audio kills retention faster than bad video.\n\n3. LIGHT: Amaran 60d + Softbox.\nWhy: Small footprint for small office, professional soft light look."
+      }
+    ]
+  },
+  {
+    id: 'viral-velocity-tracker',
+    name: 'Viral Velocity Tracker – V1',
+    tagline: 'Trend jacking engine',
+    description: 'Identifies rising audio and format trends hours before they peak, giving you the window to ride the viral wave.',
+    fullPrice: 159,
+    category: ToolCategory.MARKET,
+    productLine: ProductLine.CREATOR,
+    systemPromptTeaser: "You are a Trend Analyst. Given a rising trend description, suggest 3 ways a creator in a specific niche could adapt it authentically without looking cringe.",
+    features: ['Early Trend Detection', 'Adaptation Engine', 'Velocity Scorer'],
+    demoPlaceholder: "Trend: 'Wes Anderson Style'. Niche: 'Cooking'...",
+    demoFilePath: 'assets/demos/viral-velocity-tracker.md',
+    demoFileSize: '5 KB',
+    scenarios: [
+      {
+        id: 'c1',
+        label: 'Wes Anderson Trend',
+        input: "Trend: 'Wes Anderson Style' (Symmetrical, flat, quirky music). My Niche: Cooking.",
+        output: "ADAPTATION CONCEPTS:\n\n1. 'The Symmetrical Sandwich': Top-down shot. Perfectly placing ingredients. Deadpan stare into camera while slicing.\n\n2. 'Mise-en-scène Prep': Rapid, 90-degree whip pans showing perfectly organized bowls of spices. Title card: 'The Preparation of the Sauce' in yellow Futura font.\n\n3. Color Palette Focus: Cook only pastel-colored foods to match the Grand Budapest aesthetic."
+      }
+    ]
   }
 ];
 
 export const TOOL_ICONS: Record<string, React.ReactNode> = {
+  // Indy Studio Icons
   'script-analyst-pro': <ScrollText className="w-6 h-6" />,
   'budget-forecast-pro': <Banknote className="w-6 h-6" />,
   'pitch-deck-opt-pro': <Presentation className="w-6 h-6" />,
@@ -240,6 +436,16 @@ export const TOOL_ICONS: Record<string, React.ReactNode> = {
   'prod-doc-gen-pro': <FileText className="w-6 h-6" />,
   'rights-clearance-pro': <Shield className="w-6 h-6" />,
   'trend-scout': <TrendingUp className="w-6 h-6" />,
+
+  // Creator Icons
+  'algorithm-planner': <Share2 className="w-6 h-6" />,
+  'brand-pitch-builder': <Briefcase className="w-6 h-6" />,
+  'content-hook-analyzer': <Magnet className="w-6 h-6" />,
+  'copyright-shield': <ShieldCheck className="w-6 h-6" />,
+  'creator-business-docs': <FileBadge className="w-6 h-6" />,
+  'creator-economics-dashboard': <BarChart3 className="w-6 h-6" />,
+  'creator-tech-optimizer': <Laptop className="w-6 h-6" />,
+  'viral-velocity-tracker': <Rocket className="w-6 h-6" />,
 };
 
 export const NAV_ITEMS = [
